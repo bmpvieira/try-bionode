@@ -44,7 +44,10 @@ RUN npm install -g bionode dat json
 
 # Install Homebrew Linux and Bioinformatics packages
 RUN ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install | grep -v 'run this as root')" < /dev/null
-RUN echo 'export PATH="$HOME/.linuxbrew/bin:$PATH" \
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH" \
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"' >> ~/.config/fish/config.fish
+RUN echo 'export PATH="$HOME/.linuxbrew/bin:$PATH" \n\
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH" \n\
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"' >> ~/.bashrc
+RUN echo 'set -x PATH $PATH "$HOME/.linuxbrew/bin" \n\
+set -x MANPATH $MANPATH "$HOME/.linuxbrew/share/man" \n\
+set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"' >> ~/.config/fish/config.fish
 RUN brew install bwa samtools
