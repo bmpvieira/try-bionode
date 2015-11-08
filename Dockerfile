@@ -34,7 +34,9 @@ RUN git clone https://github.com/fish-shell/fish-shell.git ;\
   autoconf ;\
   ./configure ;\
   make ;\
-  make install
+  make install ;\
+  cd .. ;\
+  rm -r fish-shell
 RUN curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
 RUN fish -c 'omf install agnoster; omf theme agnoster'
 RUN echo 'set fish_greeting ""' >> ~/.config/fish/config.fish 
@@ -52,3 +54,5 @@ set -x MANPATH $MANPATH "$HOME/.linuxbrew/share/man" \n\
 set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"' >> ~/.config/fish/config.fish
 RUN fish -c 'brew tap homebrew/science'
 RUN fish -c 'brew install bwa samtools'
+RUN mkdir /root-dotconfigs
+RUN fish -c 'cp -r /root/.* /root-dotconfigs'
