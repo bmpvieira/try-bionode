@@ -5,7 +5,7 @@ Try bionode using docker
 ## Installation
 
 ```
-docker pull bmpvieira/try-bionode
+docker pull bionode/try-bionode
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ docker pull bmpvieira/try-bionode
 Simply run the image
 
 ```
-docker run -it bmpvieira/try-bionode
+docker run -it bionode/try-bionode
 ```
 
 ## Use with docker-browser-server
@@ -22,7 +22,7 @@ You can also use this image with [adventure-time](https://github.com/maxogden/ad
 
 ```
 npm install -g docker-browser-server
-docker-browser-server bmpvieira/try-bionode # and then set adventure-time to point to localhost:8080
+docker-browser-server bionode/try-bionode # and then set adventure-time to point to localhost:8080
 ```
 
 ## License
