@@ -50,4 +50,5 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"' >> ~/.bashrc
 RUN echo 'set -x PATH $PATH "$HOME/.linuxbrew/bin" \n\
 set -x MANPATH $MANPATH "$HOME/.linuxbrew/share/man" \n\
 set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"' >> ~/.config/fish/config.fish
-RUN brew install bwa samtools
+RUN fish -c 'brew tap homebrew/science'
+RUN fish -c 'brew install bwa samtools'
