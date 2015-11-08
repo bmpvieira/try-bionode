@@ -1,0 +1,20 @@
+#!/bin/bash
+# Modified from mafintosh/docker-adventure-time
+
+expose-fs /root --quiet &
+
+wait_for_fs () {
+  if ! curl -fs localhost:8441 > /dev/null; then
+    sleep 0.2
+    wait_for_fs
+  fi
+}
+
+wait_for_fs
+
+if [ -f /welcome.txt ]; then
+  cat /welcome.txt | format --host "$HOST" --container-id "$CONTAINER_ID" --port "$PORT" > /welcome-custom.txt
+  cat /welcome-custom.txt
+fi
+
+/usr/local/bin/fish

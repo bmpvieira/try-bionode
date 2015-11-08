@@ -1,11 +1,11 @@
-# try-dat
+# try-bionode
 
-Try dat using docker
+Try bionode using docker
 
 ## Installation
 
 ```
-docker pull mafintosh/try-dat
+docker pull bmpvieira/try-bionode
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ docker pull mafintosh/try-dat
 Simply run the image
 
 ```
-docker run -it mafintosh/try-dat
+docker run -it bmpvieira/try-bionode
 ```
 
 ## Use with docker-browser-server
@@ -22,7 +22,7 @@ You can also use this image with [adventure-time](https://github.com/maxogden/ad
 
 ```
 npm install -g docker-browser-server
-docker-browser-server mafintosh/try-dat # and then set adventure-time to point to localhost:8080
+docker-browser-server bmpvieira/try-bionode # and then set adventure-time to point to localhost:8080
 ```
 
 ## License
