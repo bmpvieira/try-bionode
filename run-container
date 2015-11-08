@@ -17,4 +17,8 @@ if [ -f /welcome.txt ]; then
   cat /welcome-custom.txt
 fi
 
+if [ ! -f /root/.linuxbrew ]; then
+  cp -r /root-dotconfigs/.* /root/
+fi
+
 /usr/local/bin/fish
