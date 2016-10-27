@@ -2,7 +2,7 @@
 #
 # VERSION               1.0.0
 
-FROM ubuntu:15.10
+FROM ubuntu:latest
 MAINTAINER Bruno Vieira <mail@bmpvieira.com>
 
 LABEL Description="For try.bionode.io workshop" Version="1.0.0"
@@ -15,7 +15,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Install Ubuntu packages
 RUN apt-get update
-RUN apt-get install -y build-essential ncurses-dev libncurses5-dev gettext autoconf automake m4 curl vim git npm python ruby
+RUN apt-get install -y build-essential ncurses-dev libncurses5-dev gettext autoconf automake m4 curl vim git npm python ruby samtools bwa
 
 # Install Node.js
 RUN npm install -g n
@@ -29,30 +29,37 @@ ENTRYPOINT /run-container
 ADD welcome.txt /
 
 # Install latest Fish shell
-RUN git clone https://github.com/fish-shell/fish-shell.git ;\
-  cd fish-shell ;\
-  autoconf ;\
-  ./configure ;\
-  make ;\
-  make install ;\
-  cd .. ;\
-  rm -r fish-shell
-RUN curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
-RUN fish -c 'omf install agnoster; omf theme agnoster'
-RUN echo 'set fish_greeting ""' >> ~/.config/fish/config.fish 
+#RUN git clone https://github.com/fish-shell/fish-shell.git ;\
+#  cd fish-shell ;\
+#  autoconf ;\
+#  ./configure ;\
+#  make ;\
+#  make install ;\
+#  cd .. ;\
+#  rm -r fish-shell
+#RUN curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
+#RUN fish -c 'omf install agnoster; omf theme agnoster'
+#RUN echo 'set fish_greeting ""' >> ~/.config/fish/config.fish 
 
 # Install Bionode, Dat and JSON handling tool
 RUN npm install -g bionode dat json
 
+RUN apt-get install -y zsh
+
+RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /root/.oh-my-zsh
+RUN cp /root/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+RUN chsh -s /bin/zsh
+#RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 # Install Homebrew Linux and Bioinformatics packages
-RUN ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install | grep -v 'run this as root')" < /dev/null
-RUN echo 'export PATH="$HOME/.linuxbrew/bin:$PATH" \n\
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH" \n\
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"' >> ~/.bashrc
-RUN echo 'set -x PATH $PATH "$HOME/.linuxbrew/bin" \n\
-set -x MANPATH $MANPATH "$HOME/.linuxbrew/share/man" \n\
-set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"' >> ~/.config/fish/config.fish
-RUN fish -c 'brew tap homebrew/science'
-RUN fish -c 'brew install bwa samtools'
+#RUN ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install | grep -v 'run this as root')" < /dev/null
+#RUN echo 'export PATH="$HOME/.linuxbrew/bin:$PATH" \n\
+#export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH" \n\
+#export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"' >> ~/.bashrc
+#RUN echo 'set -x PATH $PATH "$HOME/.linuxbrew/bin" \n\
+#set -x MANPATH $MANPATH "$HOME/.linuxbrew/share/man" \n\
+#set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"' >> ~/.config/fish/config.fish
+#RUN fish -c 'brew tap homebrew/science'
+#RUN fish -c 'brew install bwa samtools'
 RUN mkdir /root-dotconfigs
-RUN fish -c 'cp -r /root/.* /root-dotconfigs'
+RUN bash -c 'cp -r /root/.[!.]* /root-dotconfigs'
